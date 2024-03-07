@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useToast } from "@chakra-ui/react";
 import Spinner from "../../Spinner/Spinner";
 import axios from "axios";
 import Toast from "../../Toast/Toast";
+import { useToast } from "@chakra-ui/react";
 
 const Signup = () => {
   const [show, setShow] = useState();
@@ -13,21 +13,52 @@ const Signup = () => {
   const [confirmpassword, setConfirmpassword] = useState();
   const [pic, setPic] = useState();
   const [loading, setLoading] = useState(false);
-  const toast = useToast();
   const navigate = useNavigate();
+  const toast = useToast();
+
+  toast({
+    title: "Image Progress",
+    description: "We've saved your uploaded image.",
+    status: "success",
+    duration: 9000,
+    isClosable: true,
+    position: "top-right",
+  });
+
+  // const showToast = (title, status, description, duration, position) => {
+  //   setToastContent({
+  //     title,
+  //     status,
+  //     description,
+  //     duration,
+  //     position,
+  //   });
+  //   console.log("toast!!");
+  // };
+
+  // const showToast = (title, status, description, duration, position) => {
+  //   return (
+  //     <Toast
+  //       title={title}
+  //       status={status}
+  //       description={description}
+  //       duration={duration}
+  //       position={position}
+  //     />
+  //   );
+  // };
+
+  // showToast("Test toast", "success", "OOOgoba", 5000, "bottom-center");
 
   const handleClick = () => setShow(!show);
+
+  // `${(<Toast title="Please Select An Image" status="Warning" duration={5000} position="bottom-center" />)}`;
 
   const postDetails = (pics) => {
     setLoading(true);
     if (pics == undefined) {
-      toast({
-        title: "Please Select an Image!",
-        status: "Warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      // `${(<Toast title="Please Select An Image" status="Warning" duration={5000} position="bottom-center" />)}`;
+      console.log("Please select and image ");
       return;
     }
 
@@ -43,7 +74,9 @@ const Signup = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
+          // `${(<Toast title="Image Select Successful" status="Success" duration={5000} position="bottom-center" />)}`;
           console.log(data);
+
           setLoading(false);
         })
         .catch((err) => {
@@ -51,13 +84,8 @@ const Signup = () => {
           setLoading(false);
         });
     } else {
-      toast({
-        title: "Please Select an Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      // `${(<Toast title="Please Select An Image" status="Warning" duration={5000} position="bottom-center" />)}`;
+      console.log("please select an image");
       setLoading(false);
       return;
     }
@@ -65,32 +93,23 @@ const Signup = () => {
 
   const submitHandler = async () => {
     setLoading(true);
+
     if (!name || !email || !password || !confirmpassword) {
-      toast({
-        title: "Please fill all the fields",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      // `${(<Toast title="Please Fill All The Fields" status="Warning" duration={5000} position="bottom-center" />)}`;
+      // console.log("Please fill all the fields");
       setLoading(false);
       return;
     }
     if (password !== confirmpassword) {
-      toast({
-        title: "Passwords Do Not Match",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      // `${(<Toast title="Passwords Do Not Match" status="Warning" duration={5000} position="bottom-center" />)}`;
+      console.log("passwords do not match");
       return;
     }
 
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-type": "application/json",
         },
       };
 
@@ -99,27 +118,16 @@ const Signup = () => {
         { name, email, password, pic },
         config
       );
-      toast({
-        title: "Registration Successful",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      // `${(<Toast title="Registration Successful" status="Success" duration={5000} position="bottom-center" />)}`;
+      console.log("registration successful");
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 
       setLoading(false);
       navigate("/chats");
     } catch (error) {
-      toast({
-        title: "Error Occured",
-        description: error.response.data.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      // `${(<Toast title="Erro Occured" description={error.response.data.message} status="Danger" duration={5000} position="bottom-center" />)}`;
+      console.log(error);
       setLoading(false);
     }
   };
@@ -199,7 +207,22 @@ const Signup = () => {
               Log in
             </Link>
           </p>
-          <Toast />
+          <Toast
+            title="Show me what you got"
+            status="DANGER"
+            description="Please fill out all the fields."
+            duration={6000}
+            position="bottom-center"
+          />
+          {/* {toastContent && (
+            <Toast
+              title={toastContent.title}
+              status={toastContent.status}
+              description={toastContent.description}
+              duration={toastContent.duration}
+              position={toastContent.position}
+            />
+          )} */}
         </form>
       </div>
     </div>

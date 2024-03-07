@@ -1,0 +1,31 @@
+{
+  "name": "lets-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon backend/server.js",
+
+  },
+  "author": "Brian Otieno",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.6.7",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.3.3",
+    "cloudinary": "^2.0.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "framer-motion": "^11.0.8",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.0",
+    "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  }
+}
